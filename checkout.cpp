@@ -38,15 +38,18 @@ void readBooks(vector<Book *> & myBooks) {
         while(!inFile.eof())
         {
 
+          //getline(inFile, line);
+          inFile >> id;
           getline(inFile, line);
           getline(inFile, bookName);
           getline(inFile, auth);
           getline(inFile, cat);
-          getline(inFile, id);
+
+          //getline(inFile, id);
           getline(inFile, line);
 
           Book * bPtr = nullptr;
-          bPtr = new Book(bookName, auth, cat, id);
+          bPtr = new Book(id, bookName, auth, cat);
           myBooks.push_back(bPtr);
 
         }
@@ -71,21 +74,24 @@ int readPersons(vector<Person *> & myCardholders) {
 
     if(inFile.is_open())
       {
-
-        while(!inFile.eof())
+        //inFile >> fName;
+        while(inFile >> cardNo)
         {
 
+          //inFile >> fName;
+          inFile >> act;
           inFile >> fName;
           inFile >> lName;
-          inFile >> cardNo;
-          inFile >> act;
+
+
           getline(inFile, line);
 
-          Person.pPtr = nullptr;
-          pPtr = new Person(fName, lName, cardNo, act);
+          Person * pPtr;
+          pPtr = new Person( cardNo, act, fName, lName);
+          //myCardholders.push_back(new Person( cardNo, act, fName, lName)); // same as the line below
           myCardholders.push_back(pPtr);
 
-          inFile >> fName;
+          //inFile >> fName;
         }
       }
         inFile.close();
@@ -112,25 +118,28 @@ void readRentals(vector<Book *> & myBooks, vector<Person *> myCardholders) {
           inFile >> cardID;
           inFile >> bookID;
 
-          int m = myBooks.size();
-          int n = myCardholders.size();
+            Book * bookPtr = nullptr;
 
-          for (int i = 0; i < m; i++)
+
+          for (int i = 0; i <  myBooks.size(); i++)
             {
 
-              if(myBooks.at(i) -> getId() == bookID)
+              if(myBooks.at(i)->getId() == bookID)
               {
-                myBooks.at(i) -> setPersonPtr(pPtr);
+                bookPtr = myBooks.at(i);
               }
 
             }
 
-           for (int j = 0; j < n; j++)
+
+           for (int j = 0; j <  myCardholders.size(); j++)
               {
 
-                if(myCardholders.at(j) -> getId() == cardID)
+                if(myCardholders.at(j)->getId() == cardID)
                 {
-                  myCardholders.at(j) -> setPersonPtr(pPtr);
+
+                  bookPtr->setPersonPtr(myCardholders.at(j));
+
                 }
 
               }
@@ -148,34 +157,46 @@ void openCard(vector<Person *> & myCardholders, int nextID) {
 
 
     string fName, lName;
-    int id;
-    int size = myCardholders.size();
-    ofstream inFile;
-    inFile.open("persons.txt");
+    int cardNo;
+    //bool act;
 
-      if(inFile.is_open())
+    for (int k = 0; k <  myCardholders.size(); k++)
+    {
+
+      cout << "Enter your first and last name: ";
+      cin >> fName >> lName;
+
+      if (myCardholders.at(k)->getFirstName() == fName && myCardholders.at(k)->getLastName() == lName)
       {
-        while (id > size)
-        {
-          PERSON person;
-          person.fName = firstName;
-          person.lName = lastName;
-          nextID = size + 1;
-          person.cardNo = cardID;
-          myCardholders.push_back(person);
-        }
+          myCardholders.at(k)->setActive(1);
 
-
-        inFile.close();
       }
+
+      else
+      {
+
+        cardNo = myCardholders.size() + 1;
+        Person * pPtr;
+        pPtr = new Person(cardNo, 1, fName, lName);
+        myCardholders.push_back(pPtr);
+        //myCardholders.push_back(new Person( cardNo, 1, fName, lName)); // same as the line above
+
+      }
+
+    }
+
     return;
 }
 
 
 
-/*Book * searchBook(vector<Book *> myBooks, int id) {
+Book * searchBook(vector<Book *> myBooks, int id) {
+
+
+
+
     return nullptr;
-}*/
+}
 
 
 

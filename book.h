@@ -12,7 +12,7 @@ private:
     string   author;
     string   category;
     int      bookID;
-    Person * personPtr = nullptr;
+    Person * pPtr = nullptr;
 
 public:
     Book(int id, string bookName, string auth, string cat);

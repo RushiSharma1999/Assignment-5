@@ -6,6 +6,7 @@ Book::Book(int id, string bookName, string auth, string cat) {
     author = auth;
     category = cat;
     bookID = id;
+    
 }
 
 string Book::getTitle() {
