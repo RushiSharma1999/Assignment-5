@@ -193,6 +193,46 @@ void openCard(vector<Person *> & myCardholders, int nextID) {
 Book * searchBook(vector<Book *> myBooks, int id) {
 
 
+  string bookName, auth, cat;
+  int id;
+  string line;
+
+  ifstream inFile;
+
+  inFile.open("books.txt");
+
+  if(inFile.is_open())
+    {
+
+      while(!inFile.eof())
+      {
+
+        cout << "Enter the book ID: ";
+        cin >> id;
+
+          Book * bookPtr = nullptr;
+
+        for (int i = 0; i <  myBooks.size(); i++)
+          {
+
+
+              if (myBooks.at(i)->getId() == id)
+              {
+
+                bookPtr = myBooks.at(i);
+
+              }
+              
+
+
+          }
+
+
+
+
+      }
+
+    }
 
 
     return nullptr;
