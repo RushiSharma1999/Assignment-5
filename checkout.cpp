@@ -1,13 +1,9 @@
-// Rushi Sharma
+
+
+      // Rushi Sharma
 // Section #03
 #include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include "person.cpp"
-#include "book.cpp"
 
-using namespace std;
 
 void printMenu() {
     cout << "----------Library Book Rental System----------" << endl;
@@ -90,7 +86,7 @@ int readPersons(vector<Person *> & myCardholders) {
       }
         inFile.close();
 
-    return myCardholders.back() -> getId();
+    return myCardholders.back()->getId();
 }
 
 
@@ -118,9 +114,9 @@ void readRentals(vector<Book *> & myBooks, vector<Person *> myCardholders) {
           for (int i = 0; i < m; i++)
             {
 
-              if(myBooks.at(i) -> getId() == bookID)
+              if(myBooks.at(i)->getId() == bookID)
               {
-                myBooks.at(i) -> setPersonPtr(pPtr);
+                myBooks.at(i)->setPersonPtr(pPtr);
               }
 
             }
@@ -128,9 +124,9 @@ void readRentals(vector<Book *> & myBooks, vector<Person *> myCardholders) {
            for (int j = 0; j < n; j++)
               {
 
-                if(myCardholders.at(j) -> getId() == cardID)
+                if(myCardholders.at(j)->getId() == cardID)
                 {
-                  myCardholders.at(j) -> setPersonPtr(pPtr);
+                  myCardholders.at(j)->setPersonPtr(pPtr);
                 }
 
               }
@@ -173,9 +169,59 @@ void openCard(vector<Person *> & myCardholders, int nextID) {
 
 
 
-/*Book * searchBook(vector<Book *> myBooks, int id) {
+Book * searchBook(vector<Book *> myBooks, int id) {
+
+  int n = myBooks.size();
+
+  for (int j = 0; j < n; j++)
+     {
+
+       if(myBooks.at(j)->getId() == cardID)
+       {
+         return myBooks.at(j);
+       }
+
+     }
+
+
     return nullptr;
-}*/
+}
+
+int getBookID() {
+
+  int id;
+  cout >> "Enter book ID:: ";
+  cin >> id;
+  return id;
+
+}
+
+Person * checkCardId(vector<Person *> & myCardholders) {
+
+  int id;
+  cout << "Enter the card ID number:: ";
+  cin >> id;
+  int o = myCardholders.size();
+
+  for (int k = 0; k < o; k++)
+  {
+
+    if(myCardholders.at(k)->getId() == cardID && myCardholders.at(k)->isActive())
+    {
+
+      cout << "Name of the cardholder:: " << myCardholders.fullName() << endl;
+      return myCardholders.at(k);
+
+    }
+
+  }
+
+  cout << "Card ID does not match." << endl;
+  return nullptr;
+
+}
+
+
 
 
 
@@ -194,6 +240,14 @@ int main()
         switch(choice)
         {
             case 1:
+
+            Person * personPtr = checkCardId(myCardholders);
+
+            if ()
+            {
+
+              
+            }
                 // Book checkout
                 break;
 
@@ -224,6 +278,20 @@ int main()
 
             case 8:
                 // Must update records in files here before exiting the program
+                int p = myCardholders.size();
+                int q = myBooks.size();
+
+                for (int k = 0; k < p; k++)
+                {
+                  delete myCardholders.at(k);
+                }
+
+                for (int l = 0; l < q; l++)
+                {
+                  delete myBooks.at(l);
+                }
+
+
                 break;
 
             default:
